@@ -8,7 +8,7 @@ import { useAuth } from "../hooks/useAuth";
 const Login = () => {
   const { setAuth } = useAuth();
   const location = useLocation();
-  const from = location.state.from || "/";
+  const from = location.state?.from || "/";
   const navigate = useNavigate();
   const { handleBlur, handleChange, handleSubmit, errors, touched, values } =
     useFormik({
@@ -32,6 +32,7 @@ const Login = () => {
               accessToken: response.data.accessToken,
               email: values.email,
             });
+            resetForm({ values: { email: "", password: "" } });
             /*  
             if user is logged in successfully navigate to requested page
             (defaulted to home page if no page is requested)

@@ -6,7 +6,6 @@ import Movies from "./pages/Movies";
 import TvShows from "./pages/TvShows";
 import Bookmarks from "./pages/Bookmarks";
 import RequireAuthRoutes from "./Auth/RequireAuthRoutes";
-import PersistLogin from "./Auth/PersistLogin";
 function App() {
   return (
     <section className="flex flex-col   md:mt-6 lg:flex-row lg:items-baseline lg:gap-6">
@@ -16,13 +15,10 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/tvshows" element={<TvShows />} />
 
-        {/* To have persistent Login */}
-        <Route element={<PersistLogin />}>
-          {/* the routes below are protected and need login in order to be viewed */}
-          <Route element={<RequireAuthRoutes />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/bookmarks" element={<Bookmarks />} />
-          </Route>
+        {/* the routes below are protected and need login in order to be viewed */}
+        <Route element={<RequireAuthRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
         </Route>
       </Routes>
     </section>

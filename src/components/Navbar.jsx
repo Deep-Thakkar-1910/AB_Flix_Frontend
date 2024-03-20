@@ -1,32 +1,14 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { FaHome, FaFilm, FaBookmark } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { GrDevice } from "react-icons/gr";
-import { useEffect, useState } from "react";
-import axios from "../api/axios";
-import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
+import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
+import { useLogout } from "../hooks/useLogout";
 const Navbar = () => {
-  const navigate = useNavigate();
-  const [currentEmail, setCurrentEmail] = useState("");
-  const axiosPrivate = useAxiosPrivate();
-  const currentLocation = useLocation();
-
+  const { auth } = useAuth();
+  const Logout = useLogout();
   // to get the user details and profileImage
-  useEffect(() => {
-    const getUserDetails = async () => {
-      try {
-        const response = await axiosPrivate.get("/user/details");
-        setCurrentEmail(response.data.userDetails.email);
-      } catch (err) {
-        // if an error occurs it means user isn't logged in so redirect to login page
-        navigate("/login", {
-          state: { from: currentLocation.pathname },
-          replace: true,
-        });
-      }
-    };
-    getUserDetails();
-  }, []);
 
   // function to get the current path and update the active navbar icon  color accorindgly
   const { pathname } = useLocation();
@@ -106,9 +88,11 @@ const Navbar = () => {
         >
           <div className="flex flex-col">
             <p className="text-gray-500">You are logged in as : </p>
-            <p className="text-sky-500">{currentEmail}</p>
+            <p className="text-sky-500">{auth.email}</p>
           </div>
-          <button className="w-20 rounded-lg bg-red-500 p-2">Logout</button>
+          <button className="w-20 rounded-lg bg-red-500 p-2" onClick={Logout}>
+            Logout
+          </button>
         </div>
       )}
     </nav>
