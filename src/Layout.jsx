@@ -2,11 +2,12 @@ import { Bounce, ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
 import useGetBookmarks from "./hooks/useGetBookmarks";
+import useGetBookmarkID from "./hooks/useGetBookmarksID";
 // eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
   // custom hook to get the bookmarks and refresh the bookmarks array in the redux store
   useGetBookmarks();
-
+  useGetBookmarkID();
   return (
     <>
       <Navbar />
