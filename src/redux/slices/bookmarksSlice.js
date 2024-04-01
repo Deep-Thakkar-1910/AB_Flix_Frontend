@@ -14,10 +14,14 @@ export const bookmarkSlice = createSlice({
     },
     populateBookmarkArray: (state, action) => {
       state.bookmarkArray = action.payload;
+    },
+    populateBookmarkId: (state, action) => {
+      state.bookmarkId = [...state.bookmarkId, action.payload];
     }
   }
 });
 
-export const { toggleBookmark, populateBookmarkArray } = bookmarkSlice.actions;
+export const { toggleBookmark, populateBookmarkArray, populateBookmarkId } =
+  bookmarkSlice.actions;
 
 export default bookmarkSlice.reducer;
