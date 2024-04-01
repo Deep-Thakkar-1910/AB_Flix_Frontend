@@ -1,9 +1,12 @@
 import { Bounce, ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
-
+import useGetBookmarks from "./hooks/useGetBookmarks";
 // eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
+  // custom hook to get the bookmarks and refresh the bookmarks array in the redux store
+  useGetBookmarks();
+
   return (
     <>
       <Navbar />
@@ -17,7 +20,9 @@ const Layout = ({ children }) => {
         theme="dark"
         transition={Bounce}
       />
-      <main className="flex flex-col p-6  md:ml-6">{children}</main>
+      <main className="mb-16 mt-24 flex w-screen flex-col items-center p-6 md:ml-6 lg:ml-32 lg:mt-0 lg:items-start">
+        {children}
+      </main>
     </>
   );
 };
