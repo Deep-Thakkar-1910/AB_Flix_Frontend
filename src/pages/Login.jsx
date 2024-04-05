@@ -14,7 +14,7 @@ const Login = () => {
     useFormik({
       initialValues: {
         email: "",
-        password: "",
+        password: ""
       },
       onSubmit: async (values, { resetForm }) => {
         try {
@@ -22,15 +22,15 @@ const Login = () => {
             "/user/login",
             JSON.stringify(values),
             {
-              headers: { "Content-Type": "application/json" },
-            },
+              headers: { "Content-Type": "application/json" }
+            }
           );
           if (response.data.success) {
             // if user login is successful setAuth value to request email and response accessToken
             toast.success(`Logged in as ${values.email}`);
             setAuth({
               accessToken: response.data.accessToken,
-              email: values.email,
+              email: values.email
             });
             resetForm({ values: { email: "", password: "" } });
             /*  
@@ -52,7 +52,7 @@ const Login = () => {
           }
         }
       },
-      validationSchema: loginValidationSchema,
+      validationSchema: loginValidationSchema
     });
   return (
     <main className="flex h-screen w-full flex-col items-center justify-center gap-20 ">
@@ -63,7 +63,8 @@ const Login = () => {
           {/* email field */}
           <div
             tabIndex={1}
-            className="flex flex-col gap-2 border-b-2 border-b-app-icons   border-opacity-30 pb-2  focus-within:border-b-white focus-within:border-opacity-60 "
+            className={`flex flex-col gap-2 border-b-2 ${touched.email && errors.email ? "border-b-app-red" : "border-b-app-icons"} 
+            ${touched.email && errors.email ? "border-opacity-100" : "border-opacity-30"} pb-2  focus-within:${touched.email && errors.email ? "border-b-app-red" : "border-b-white"} focus-within:${touched.email && errors.email ? "border-opacity-100" : "border-opacity-60"} `}
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-0">
               <input
@@ -76,7 +77,7 @@ const Login = () => {
                 placeholder="Email"
               />
               <ErrorMessage
-                className={"ml-2 text-xs text-red-600 sm:ml-0"}
+                className={"ml-2 text-xs text-app-red sm:ml-0"}
                 touched={touched.email}
                 error={errors.email}
               />
@@ -85,7 +86,8 @@ const Login = () => {
           {/* password input field */}
           <div
             tabIndex={2}
-            className="flex flex-col gap-2 border-b-2 border-b-app-icons   border-opacity-30 pb-2  focus-within:border-b-white focus-within:border-opacity-60 "
+            className={`flex flex-col gap-2 border-b-2 ${touched.password && errors.password ? "border-b-app-red" : "border-b-app-icons"} 
+            ${touched.password && errors.password ? "border-opacity-100" : "border-opacity-30"} pb-2  focus-within:${touched.password && errors.password ? "border-b-app-red" : "border-b-white"} focus-within:${touched.password && errors.password ? "border-opacity-100" : "border-opacity-60"} `}
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-0">
               <input
@@ -98,7 +100,7 @@ const Login = () => {
                 placeholder="Password"
               />
               <ErrorMessage
-                className="ml-2 text-xs text-red-600 sm:ml-0"
+                className="ml-2 text-xs text-app-red sm:ml-0"
                 touched={touched.password}
                 error={errors.password}
               />

@@ -6,8 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { registerValidationSchema } from "../validation/registerValidationSchema";
 import Resizer from "react-image-file-resizer";
 import ErrorMessage from "../components/ErrorMessage";
-import { useState } from "react";
+import { useRef, useState } from "react";
 const Register = () => {
+  const imageRef = useRef(null);
   const [success, setSuccess] = useState(false);
   const [doesImageExist, setDoesImageExist] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Register = () => {
         (uri) => {
           resolve(uri);
         },
-        "blob",
+        "blob"
       );
     });
 
@@ -35,13 +36,13 @@ const Register = () => {
     errors,
     touched,
     values,
-    setFieldValue,
+    setFieldValue
   } = useFormik({
     initialValues: {
       email: "",
       password: "",
       confirmPassword: "",
-      profileImage: null,
+      profileImage: null
     },
     validationSchema: registerValidationSchema,
     onSubmit: async ({ email, password, profileImage }) => {
@@ -51,8 +52,8 @@ const Register = () => {
           "/user/register",
           JSON.stringify({ email, password }),
           {
-            headers: { "Content-Type": "application/json" },
-          },
+            headers: { "Content-Type": "application/json" }
+          }
         );
 
         if (response.data.success) {
@@ -65,12 +66,12 @@ const Register = () => {
         // if any error occurs
         toast.error(err.response.data.message);
       }
-    },
+    }
   });
 
   return (
     <main className="flex h-screen w-full flex-col items-center justify-center gap-20 ">
-      <img src="/logo.svg" alt="logo" className="h-10 w-12" />
+      <img src="/logo.svg" alt="logo" className="mt-20 h-10 w-12 md:mt-0" />
       <div className="w-72 rounded-lg bg-app-light p-6 sm:w-96">
         <h2 className="mb-4 text-2xl font-light">
           {success ? "Success" : "Sign Up"}
@@ -87,7 +88,8 @@ const Register = () => {
             {/* email field */}
             <div
               tabIndex={1}
-              className="flex flex-col gap-2 border-b-2 border-b-app-icons   border-opacity-30 pb-2  focus-within:border-b-white focus-within:border-opacity-60 "
+              className={`flex flex-col gap-2 border-b-2 ${touched.email && errors.email ? "border-b-app-red" : "border-b-app-icons"} 
+              ${touched.email && errors.email ? "border-opacity-100" : "border-opacity-30"} pb-2  focus-within:${touched.email && errors.email ? "border-b-app-red" : "border-b-white"} focus-within:${touched.email && errors.email ? "border-opacity-100" : "border-opacity-60"} `}
             >
               <input
                 value={values.email}
@@ -108,7 +110,8 @@ const Register = () => {
             {/* password input field */}
             <div
               tabIndex={2}
-              className="flex flex-col gap-2 border-b-2 border-b-app-icons   border-opacity-30 pb-2  focus-within:border-b-white focus-within:border-opacity-60 "
+              className={`flex flex-col gap-2 border-b-2 ${touched.password && errors.password ? "border-b-app-red" : "border-b-app-icons"} 
+              ${touched.password && errors.password ? "border-opacity-100" : "border-opacity-30"} pb-2  focus-within:${touched.password && errors.password ? "border-b-app-red" : "border-b-white"} focus-within:${touched.password && errors.password ? "border-opacity-100" : "border-opacity-60"} `}
             >
               <input
                 value={values.password}
@@ -167,6 +170,7 @@ const Register = () => {
                 </div>
               </label>
               <input
+                ref={imageRef}
                 id="profileImage"
                 onBlur={handleBlur}
                 type="file"
@@ -177,9 +181,12 @@ const Register = () => {
                   const file = e.target.files[0];
                   if (!file) return;
                   const resizedImage = await resizeFile(file);
-                  const imageUrl = URL.createObjectURL(resizedImage);
-                  setFieldValue("profileImage", imageUrl);
-                  setDoesImageExist(true);
+                  const reader = new FileReader();
+                  reader.readAsDataURL(resizedImage);
+                  reader.onload = () => {
+                    setFieldValue("profileImage", reader.result);
+                    setDoesImageExist(true);
+                  };
                 }}
               />
               {values.profileImage && (
@@ -187,7 +194,9 @@ const Register = () => {
                   className="tex-sm cursor-pointer rounded-md border-2 border-app-red  p-2 text-app-red"
                   type="button"
                   onClick={() => {
+                    imageRef.current.value = "";
                     setFieldValue("profileImage", null);
+                    setDoesImageExist(false);
                   }}
                 >
                   Remove Image
