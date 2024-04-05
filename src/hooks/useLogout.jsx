@@ -1,11 +1,12 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
 
 const useLogout = () => {
+  const navigate = useNavigate();
   const { setAuth } = useAuth();
   const Logout = () => {
     setAuth({});
-    <Navigate to="/login" />;
+    navigate("/login");
   };
   return Logout;
 };

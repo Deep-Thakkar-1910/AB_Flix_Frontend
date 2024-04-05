@@ -25,17 +25,18 @@ const Navbar = () => {
     return classname;
   };
 
-  const userImage = false;
+  const userImage = localStorage.getItem(`profileImage${auth.email}`) || null;
 
   // state to implement profile popup
   const [toggleProfile, setToggleProfile] = useState(false);
 
   return (
-    <nav className="relative z-50">
-      <div className="flex h-24 w-full items-center justify-between bg-app-light p-4 md:mx-auto md:w-11/12 md:rounded-lg lg:mx-6 lg:h-[80vh]  lg:w-24 lg:flex-col lg:items-center">
+    <nav className="fixed left-0 top-0  z-50  w-full md:left-10 md:top-3 lg:left-8 lg:top-12 lg:max-w-20">
+      <div className=" flex h-24  items-center justify-between bg-app-light p-4  md:w-11/12 md:rounded-lg  lg:mx-6 lg:h-[80vh]  lg:w-24 lg:flex-col lg:items-center">
         <img src="/logo.svg" alt="logo" />
         <div className="flex gap-4 md:gap-8 lg:flex-col">
           {/* Navigations */}
+
           {/* Link to Home */}
           <NavLink to="/">
             <button className={classes("home")}>
@@ -71,19 +72,22 @@ const Navbar = () => {
 
         <div onClick={() => setToggleProfile(!toggleProfile)}>
           {userImage ? (
-            <div className="size-10 -translate-y-[10%] rounded-full border-2 border-gray-600 md:size-12 lg:translate-y-0">
-              <img src={userImage} alt="profilePic" />
+            <div className="size-10 -translate-y-[10%] cursor-pointer rounded-full border-2 border-gray-600 md:size-12 lg:translate-y-0">
+              <img
+                src={userImage}
+                alt="profilePic"
+                className="size-full rounded-full object-cover"
+              />
             </div>
           ) : (
-            <CgProfile className="size-10 -translate-y-[10%] opacity-70 md:size-11 lg:translate-y-0" />
+            <CgProfile className="size-10 -translate-y-[10%] cursor-pointer opacity-70 md:size-11 lg:translate-y-0" />
           )}
         </div>
       </div>
-
       {toggleProfile && (
         <div
           className={
-            "mx-auto flex w-full translate-y-0 items-center justify-around border-t-2  border-t-app-icons bg-app-light p-4 md:mt-4 md:w-3/4 md:rounded-2xl md:border-t-0 lg:absolute lg:-bottom-24 lg:left-6 lg:w-80"
+            " flex w-full items-center  justify-around border-t-2 border-t-app-icons  bg-app-light p-4 md:ml-16 md:mt-1 md:w-3/4  md:rounded-2xl md:border-t-0 lg:absolute lg:-bottom-[5.5rem] lg:-left-12 lg:h-fit lg:w-80 lg:rounded-2xl"
           }
         >
           <div className="flex flex-col">
