@@ -21,7 +21,10 @@ const TrendingCard = ({ item }) => {
     <div key={item.title} className=" relative z-10 snap-start">
       <div className="relative w-48 md:w-80">
         <img
-          src={item.bannerUrl || item.posterUrl || "/placeHolder.png"}
+          src={item.bannerUrl || item.posterUrl}
+          onError={(e) => {
+            e.target.src = "/placeHolder.png";
+          }}
           alt={item.title}
           className="aspect-video w-full  cursor-pointer rounded-lg object-fill transition-opacity duration-300 hover:opacity-50"
           onClick={() => {

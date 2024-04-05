@@ -44,7 +44,10 @@ const SearchResultsComponent = ({ data, error, searchString }) => {
               <div className="w-64 md:w-72 lg:w-64 xl:w-64 " key={item._id}>
                 <div className="relative w-full rounded-lg">
                   <img
-                    src={item.bannerUrl || item.posterUrl || "/placeHolder.png"}
+                    src={item.bannerUrl || item.posterUrl}
+                    onError={(e) => {
+                      e.target.src = "/placeHolder.png";
+                    }}
                     alt={item.title}
                     loading="eager"
                     className="aspect-video w-full cursor-pointer rounded-lg object-fill transition-opacity duration-300 group-hover:opacity-50"

@@ -36,7 +36,10 @@ const RecommendedItem = ({ item, type, getReleaseYear }) => {
     <div className="w-64 md:w-[13.5rem] lg:w-64">
       <div className="relative w-full rounded-lg">
         <img
-          src={item.bannerUrl || item.posterUrl || "/placeHolder.png"}
+          src={item.bannerUrl || item.posterUrl}
+          onError={(e) => {
+            e.target.src = "/placeHolder.png";
+          }}
           alt={item.title}
           loading="eager"
           className="aspect-video w-full cursor-pointer rounded-lg object-fill transition-opacity duration-300 hover:opacity-50"
