@@ -35,10 +35,12 @@ const SearchResultsComponent = ({ data, error, searchString }) => {
   return (
     <>
       {error ? (
-        <h2 className="text-2xl font-light sm:text-4xl">{error}</h2>
+        <h2 className="place-self-start text-2xl font-light sm:text-4xl">
+          {error}
+        </h2>
       ) : (
         <>
-          <h2 className="mb-10 text-2xl font-light sm:text-4xl">{`Found ${data.length} results for '${searchString}'`}</h2>
+          <h2 className="mb-10 place-self-start text-2xl font-light sm:text-4xl">{`Found ${data.length} results for '${searchString}'`}</h2>
           <div className="grid grid-cols-1 gap-8 place-self-center sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {data.map((item) => (
               <div className="w-64 md:w-72 lg:w-64 xl:w-64 " key={item._id}>

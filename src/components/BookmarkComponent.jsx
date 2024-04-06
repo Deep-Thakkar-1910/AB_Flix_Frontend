@@ -12,7 +12,7 @@ const BookmarkComponent = ({ id }) => {
   return (
     <>
       <div
-        className="group absolute right-2 top-2 z-50 grid size-10 cursor-pointer place-items-center rounded-full bg-app-dark bg-opacity-60 transition-colors duration-300 ease-in hover:bg-white hover:bg-opacity-100"
+        className="z-40/home/deep1910/Desktop/projects/Flix/Flix-backend/.env group absolute right-2 top-2 grid size-10 cursor-pointer place-items-center rounded-full bg-app-dark bg-opacity-60 transition-colors duration-300 ease-in hover:bg-white hover:bg-opacity-100"
         onClick={() => {
           toggleBookmarkId(id, doesIdExist);
         }}

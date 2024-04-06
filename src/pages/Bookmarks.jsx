@@ -50,48 +50,47 @@ const Bookmarks = () => {
         setSearchString={setSearchString}
         placeholder={"Search for Bookmarked Shows"}
       />
-      <div className="relative h-fit min-h-screen w-screen">
-        {/* showing searched bookmarks if search bar has any query */}
-        {searchString ? (
-          <SearchResultsComponent
-            data={searchResults}
-            searchString={searchString}
-            error={error}
-          />
-        ) : bookmarks.length !== 0 ? (
-          // else showing the bookmarked movies and tv shows if any
-          <div className="flex flex-col items-center gap-20 lg:items-start">
-            <div className="flex flex-col items-center lg:items-start">
-              <h1 className="my-6 place-self-start text-2xl font-extralight sm:text-4xl">
-                Bookmarked Movies
-              </h1>
-              <div className="grid grid-cols-1 gap-8 place-self-center sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:grid-cols-5">
-                <BookmarkCard data={bookmarkedMovies} />
-              </div>
-            </div>
 
-            <div className="flex flex-col items-center lg:items-start">
-              <h1 className="my-6 place-self-start text-2xl font-extralight sm:text-4xl">
-                Bookmarked Tv Shows
-              </h1>
-              <div className="grid grid-cols-1 gap-8 place-self-center sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:grid-cols-5">
-                <BookmarkCard data={bookmarkedTvShows} />
-              </div>
+      {/* showing searched bookmarks if search bar has any query */}
+      {searchString ? (
+        <SearchResultsComponent
+          data={searchResults}
+          searchString={searchString}
+          error={error}
+        />
+      ) : bookmarks.length !== 0 ? (
+        // else showing the bookmarked movies and tv shows if any
+        <div className="flex flex-col items-center gap-20 lg:items-start">
+          <div className="flex flex-col items-center lg:items-start">
+            <h1 className="my-6 place-self-start text-2xl font-extralight sm:text-4xl">
+              Bookmarked Movies
+            </h1>
+            <div className="grid grid-cols-1 gap-8 place-self-center sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:grid-cols-5">
+              <BookmarkCard data={bookmarkedMovies} />
             </div>
           </div>
-        ) : (
-          <div className="mt-20 flex size-full items-center justify-center">
-            <h1 className=" lg:-translate-x-1/2">
-              <span className="  text-2xl font-medium">
-                No Bookmarks Yet! <br />
-              </span>
-              <Link to={"/"} className="addBookmarks">
-                Spice Up Your Watchlist?
-              </Link>
+
+          <div className="flex flex-col items-center lg:items-start">
+            <h1 className="my-6 place-self-start text-2xl font-extralight sm:text-4xl">
+              Bookmarked Tv Shows
             </h1>
+            <div className="grid grid-cols-1 gap-8  sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 xl:gap-6 2xl:grid-cols-5">
+              <BookmarkCard data={bookmarkedTvShows} />
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="mt-20 flex size-full items-center justify-center">
+          <h1 className=" lg:-translate-x-1/2">
+            <span className="  text-2xl font-medium">
+              No Bookmarks Yet! <br />
+            </span>
+            <Link to={"/"} className="addBookmarks">
+              Spice Up Your Watchlist?
+            </Link>
+          </h1>
+        </div>
+      )}
     </Layout>
   );
 };
