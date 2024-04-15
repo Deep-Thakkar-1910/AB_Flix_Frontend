@@ -30,7 +30,7 @@ const Login = () => {
             toast.success(`Logged in as ${values.email}`);
             setAuth({
               accessToken: response.data.accessToken,
-              email: values.email
+              email: values.email.toLowerCase()
             });
             resetForm({ values: { email: "", password: "" } });
             /*  

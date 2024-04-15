@@ -25,7 +25,7 @@ const Navbar = () => {
     return classname;
   };
 
-  const userImage = localStorage.getItem(`profileImage${auth.email}`) || null;
+  const userImage = localStorage.getItem(`profileImage${auth.email}`) ?? null;
 
   // state to implement profile popup
   const [toggleProfile, setToggleProfile] = useState(false);

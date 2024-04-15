@@ -59,7 +59,10 @@ const Register = () => {
         if (response.data.success) {
           // if user is created successfully
           toast.success(response.data.message);
-          localStorage.setItem(`profileImage${email}`, profileImage);
+          localStorage.setItem(
+            `profileImage${email.toLowerCase()}`,
+            profileImage
+          );
           setSuccess(true);
         }
       } catch (err) {
