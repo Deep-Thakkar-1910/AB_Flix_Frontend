@@ -23,7 +23,7 @@ const TrendingCard = ({ item }) => {
         <img
           src={item.bannerUrl || item.posterUrl}
           onError={(e) => {
-            e.target.src = "/placeHolder.png";
+            e.currentTarget.src = "/placeHolder.png";
           }}
           alt={item.title}
           className="aspect-video w-full  cursor-pointer rounded-lg object-fill transition-opacity duration-300 hover:opacity-50"

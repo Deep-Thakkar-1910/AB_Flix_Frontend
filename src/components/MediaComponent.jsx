@@ -26,7 +26,7 @@ const MediaComponent = ({ error, data }) => {
                 <img
                   src={item.bannerUrl || item.posterUrl}
                   onError={(e) => {
-                    e.target.src = "/placeHolder.png";
+                    e.currentTarget.src = "/placeHolder.png";
                   }}
                   alt={item.title}
                   loading="eager"
